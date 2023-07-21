@@ -22,7 +22,7 @@ const Timer = ({startCount,setStartCount,correcWords}) => {
   return (
     <div>
     <div>Time: {timePassed}</div>
-    <div>Speed : {((correcWords/minutes) || 0).toFixed(3)} WPM </div>
+    <div>Speed : {((correcWords/minutes) || 0).toFixed(2)} WPM </div>
     </div>
   )
 }

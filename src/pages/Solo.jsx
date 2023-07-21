@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { useContext, useState,useRef } from "react";
+import {useNavigate} from 'react-router-dom'
 import { AppContext } from "../context/AppContext";
 import '../index.css';
 import Word from '../components/Word'
 import Timer from '../components/Timer'
+import Result from '../components/Result'
 
 const Solo = () => {
   const { loading, text, fetchTextData, currentWordId, setCurrentWordId } =
@@ -12,23 +14,30 @@ const Solo = () => {
   const [correctArray,setCorrectArray] = useState([]);
   const [startCount,setStartCount] = useState(false);
   const data = useRef(text);
+  const navigate = useNavigate();
 
   function checkHandler(value) {
     if(currentWordId === data.current.length){
-      return;
+      return ;
     }
     if(!startCount){
       setStartCount(true); 
     }
     if (value.endsWith(' ')) {
       // the user has finished this word
-      if(currentWordId === data.current.length-1 ){
+      if(currentWordId === data.current.length-1){
         setStartCount(false);
         setUserInput('Finished');
+        return (
+          <div>
+            <Result/>
+          </div>
+        );
+      }else{
+        setUserInput(' ');
       }
 
       setCurrentWordId(ind => ind + 1);
-      setUserInput(' ');
       setCorrectArray(prev=>{
         const word = value.trim()
         let dummy = [...prev] 
